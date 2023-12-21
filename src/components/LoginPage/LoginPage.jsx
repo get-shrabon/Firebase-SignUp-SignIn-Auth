@@ -10,6 +10,8 @@ const LoginPage = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+    setError("")
+    setSuccess("")
     console.log(email, password);
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
