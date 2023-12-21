@@ -39,7 +39,7 @@ const Header = () => {
                 {navLinks}
               </ul>
             </div>
-            <a className="text-3xl brand">
+            <a href="/" className="text-3xl brand">
               Coder<span>B</span>oy
             </a>
           </div>

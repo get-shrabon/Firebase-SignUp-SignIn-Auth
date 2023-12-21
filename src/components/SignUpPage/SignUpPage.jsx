@@ -1,12 +1,32 @@
 import { Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
 import app from "../../Firebase/firebase.config";
 import { useState } from "react";
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 
 const SignUpPage = () => {
   const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [passShow, setPassShow] = useState(null);
+
+  const handleGoogleAuth = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        console.log(result.user);
+        setSuccess("Your Account Loggin Successful")
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -33,6 +53,14 @@ const SignUpPage = () => {
       .then((result) => {
         console.log(result.user);
         setSuccess("your account successfully created");
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: "https://example.com/jane-q-user/profile.jpg",
+        })
+          .then(() => {})
+          .catch((error) => {
+            setError(error.message);
+          });
       })
       .catch((error) => {
         setError(error.message);
@@ -63,14 +91,22 @@ const SignUpPage = () => {
           />
         </div>
         <div className="mb-3">
-          <p>Password</p>
-          <input
-            className="inputBox"
-            type="password"
-            name="password"
-            placeholder="Type your password..."
-            required
-          />
+          <p>Password:</p>
+          <div className="flex items-center">
+            <input
+              className="inputBox"
+              type={passShow ? "text" : "password"}
+              name="password"
+              id=""
+              required
+            />
+            <span
+              onClick={() => setPassShow(!passShow)}
+              className="ml-[-40px] cursor-pointer"
+            >
+              {!passShow ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </span>
+          </div>
         </div>
         <div>
           {success && <p className="text-green-700">{success}</p>}
@@ -79,7 +115,9 @@ const SignUpPage = () => {
         <div className="flex items-center justify-between mt-3">
           <div className="flex items-center gap-2">
             <input type="checkbox" id="terms" className="checkbox" />
-            <label className="cursor-pointer" htmlFor="terms">Accept our terms and conditions</label>
+            <label className="cursor-pointer" htmlFor="terms">
+              Accept our terms and conditions
+            </label>
           </div>
           <div>
             <Link to="/login" className="hover:no-underline underline">
@@ -88,6 +126,17 @@ const SignUpPage = () => {
           </div>
         </div>
         <button className="btn btn-success w-full mt-4">Sign Up</button>
+        <div className="flex justify-center mt-4 gap-5">
+          <button
+            onClick={handleGoogleAuth}
+            className="text-3xl border p-3 rounded-full bg-black border-green-800 hover:text-green-950 duration-1000 text-green-800"
+          >
+            <FaGoogle></FaGoogle>
+          </button>
+          <button className="text-3xl border p-3 rounded-full bg-black border-green-800 hover:text-green-950 duration-1000 text-green-800">
+            <FaGithub></FaGithub>
+          </button>
+        </div>
       </form>
     </div>
   );
