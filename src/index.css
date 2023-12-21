@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form__container {
+  background: rgb(60, 51, 8);
+  background: linear-gradient(
+    100deg,
+    rgba(60, 51, 8, 1) 0%,
+    rgba(9, 9, 40, 1) 50%,
+    rgba(48, 20, 20, 1) 79%,
+    rgba(0, 0, 255, 1) 180%
+  );
+  padding: 100px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formBG {
+  width: fit-content;
+  border: 1px solid tomato;
+  border-radius: 10px;
+  padding: 30px;
+}
+.inputBox {
+  padding: 10px;
+  width: 500px;
+  background: transparent;
+  border: 1px solid tomato;
+  border-radius: 10px;
+}
+.brand::first-letter {
+  color: tomato;
+  font-weight: bolder;
+  font-size: 40px;
+  font-family: cursive;
+}
+.brand span {
+  color: crimson;
+  font-weight: bold;
+  font-style: italic;
+  font-family: cursive;
+}
