@@ -18,7 +18,7 @@
 }
 .formBG {
   width: fit-content;
-  border: 1px solid tomato;
+  border: 1px solid green;
   border-radius: 10px;
   padding: 30px;
 }
@@ -26,11 +26,11 @@
   padding: 10px;
   width: 500px;
   background: transparent;
-  border: 1px solid tomato;
+  border: 1px solid green;
   border-radius: 10px;
 }
 .brand::first-letter {
-  color: tomato;
+  color: green;
   font-weight: bolder;
   font-size: 40px;
   font-family: cursive;
